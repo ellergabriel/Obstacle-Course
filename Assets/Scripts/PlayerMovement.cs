@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float jumpForce = 5;
     public float moveSpeed = 5;
+    private float groundCollisionDistance = .1f;
     Rigidbody rb;
 
     [SerializeField] Transform groundCheck;
@@ -35,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
     bool isGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, .1f, ground);
-        
+        return Physics.CheckSphere(groundCheck.position, groundCollisionDistance, ground);
     }
 }
