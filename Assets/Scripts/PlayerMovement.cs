@@ -7,32 +7,35 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     public float jumpForce = 5;
-    public float moveSpeed = 5f;
-    private int jumps;
-    private int maxJumps;
+    public float moveSpeed = 5;
     Rigidbody rb;
+
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask ground;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        jumps = 0;
-        maxJumps = 2;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(rb.velocity.y == 0) { jumps = 0; } //reset jumps
-        if(rb.velocity.y < 0 && jumps == 0) { jumps++; } //falling off ledge, still gives second jump
-
+        
         float horizInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
         rb.velocity = new Vector3(horizInput * moveSpeed, rb.velocity.y, vertInput * moveSpeed);
 
-        if (Input.GetButtonDown("Jump") && (rb.velocity.y == 0 || jumps < maxJumps))
+        if (Input.GetButtonDown("Jump") && isGrounded())
         {
-            jumps++;
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+            
         }
+    }
+
+    bool isGrounded()
+    {
+        return Physics.CheckSphere(groundCheck.position, .1f, ground);
+        
     }
 }
