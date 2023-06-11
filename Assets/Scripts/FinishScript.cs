@@ -9,7 +9,7 @@ public class FinishScript : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Finished!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }    
     }
 }
