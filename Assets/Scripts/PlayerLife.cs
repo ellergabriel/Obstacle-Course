@@ -9,6 +9,7 @@ public class PlayerLife : MonoBehaviour
     [SerializeField] float deathPlane = -.5f;
     bool isDead = false;
     float reloadTime = 1f;
+    [SerializeField] AudioSource deathSound;
     public void Update()
     {
         if(transform.position.y < deathPlane && !isDead)
@@ -29,6 +30,7 @@ public class PlayerLife : MonoBehaviour
 
     private void Die()
     {
+        deathSound.Play();
         Invoke( nameof(ReloadLevel), reloadTime);
         isDead = false;
     }

@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5;
     public float moveSpeed = 5;
     private float groundCollisionDistance = .1f;
+    [SerializeField] AudioSource jumpSound;
     Rigidbody rb;
 
     [SerializeField] Transform groundCheck;
@@ -34,7 +35,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Jump(){
+    void Jump()
+    {
+        jumpSound.Play();    
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
     }
 
